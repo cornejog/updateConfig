@@ -1,5 +1,22 @@
 {
   "dependencies": {
     "prompt-sync": "^4.2.0"
-  }
+  },
+  "name": "updateconfig",
+  "description": "A script for GoodLeap that will automate and speed up the process of adding channels and loan options to those channels",
+  "version": "1.0.0",
+  "main": "configUpdate.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cornejog/updateConfig.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cornejog/updateConfig/issues"
+  },
+  "homepage": "https://github.com/cornejog/updateConfig#readme"
 }
