@@ -11,9 +11,13 @@ var addMoreLoanOptions = ""
 var newLoanOptionIdsArray = []
 var searchRate = ""
 var searchTerm = ""
+var mainMenuOption = ""
 
-var runAddNewChannel = true
+var runAddNewChannel = false
+var runFilter = true
+var addNewLoanOptionIds = false
 var runAddLoanOptions = true
+var pushNewLoanOptions = false
 
 //function to read in our json file and parse it
 function jsonReader(filePath, cb) {
@@ -37,12 +41,25 @@ jsonReader("./testClientConfig.json", (err, config) => {
     return;
   }
 
-//Asking for name of channel to be created
-nameOfNewChannel = prompt('Name of new channel?');
+console.log(("1: Create new channel and add new loan options to it" + "\n" + 
+"2: Add Loan Options to existing channel" + "\n" +
+"3: Reorganize channel" + "\n" +
+"4: Delete channel and archive loan options within them" + "\n" +
+"5: Save config file" + "\n"));
+mainMenuOption = prompt("Your input >> ") 
+
+if(mainMenuOption == "1"){
+  //Asking for name of channel to be created
+  nameOfNewChannel = prompt('Name of new channel?');
+  runAddNewChannel = true
+}
 
 // Loop for adding new channel. Asking user to filter loan options
-while(runAddNewChannel){
-  searchRate = prompt('Rate? ');
+  while(runAddNewChannel){
+  
+  //Running filter
+  while(runFilter){
+    searchRate = prompt('Rate? ');
   searchTerm = prompt('Term? ');
   // Output of filtered loan options
   console.log("---------------- FILTERED OPTIONS ------------------ " );
@@ -55,19 +72,42 @@ while(runAddNewChannel){
       + "---------------------------------");
     }
   }
-  newLoanOptionIds = prompt("New loan option ids? ")
+  runFilter = false
+  addNewLoanOptionIds = true
+  }
 
-  //Adding new channel with loan option(s). Bracket notation must be used in order to use a variable
+  while(addNewLoanOptionIds){
+    newLoanOptionIds = prompt("New loan option ids? (press q to go back to filter loan options) ")
 
-      newLoanOptionIdsArray.push(newLoanOptionIds)
-      config.loanOptionsMap[nameOfNewChannel] = newLoanOptionIdsArray
+    if(newLoanOptionIds == "q"){
+      addNewLoanOptionIds = false
+      runFilter = true
+    } else{
+      addNewLoanOptionIds = false
+      pushNewLoanOptions = true
+      runFilter = false     
+    }
+  }
 
-      addMoreLoanOptions = prompt(`Would you like to add more loan Options to ${nameOfNewChannel}?(y or n)`)
-      if (addMoreLoanOptions === "n"){
-        runAddNewChannel = false
-      } else {
-        runAddNewChannel = true
-      }
+  while(pushNewLoanOptions){
+      //Adding new channel with loan option(s). Bracket notation must be used in order to use a variable
+  
+    newLoanOptionIdsArray.push(newLoanOptionIds)
+    config.loanOptionsMap[nameOfNewChannel] = newLoanOptionIdsArray
+
+    console.log(`Pushed ${newLoanOptionIds} to ${nameOfNewChannel}`);
+  
+    addMoreLoanOptions = prompt(`Would you like to add more loan Options to ${nameOfNewChannel}?(y or n)`)
+    if (addMoreLoanOptions === "n"){
+      pushNewLoanOptions = false
+      runAddNewChannel = false
+    } else {
+      pushNewLoanOptions = false
+      addNewLoanOptionIds = true
+    }
+  }
+  
+    
 }
 
   
@@ -75,4 +115,5 @@ while(runAddNewChannel){
       fs.writeFile("./newProposedConfig.json", JSON.stringify(config), err => {
       if (err) console.log("Error writing file:", err);
     });
+    console.log("New proposed config written");
 });
