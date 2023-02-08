@@ -14,6 +14,7 @@ var searchTerm = ""
 var mainMenuOption = ""
 
 var runAddNewChannel = false
+var runAddToExistingChannel = false
 var runFilter = true
 var addNewLoanOptionIds = false
 var runAddLoanOptions = true
@@ -41,6 +42,8 @@ jsonReader("./testClientConfig.json", (err, config) => {
     return;
   }
 
+// Main Menu
+
 console.log(("1: Create new channel and add new loan options to it" + "\n" + 
 "2: Add Loan Options to existing channel" + "\n" +
 "3: Reorganize channel" + "\n" +
@@ -48,13 +51,17 @@ console.log(("1: Create new channel and add new loan options to it" + "\n" +
 "5: Save config file" + "\n"));
 mainMenuOption = prompt("Your input >> ") 
 
+
+// Main Menu controller
 if(mainMenuOption == "1"){
   //Asking for name of channel to be created
   nameOfNewChannel = prompt('Name of new channel?');
   runAddNewChannel = true
+} else if(mainMenuOption == "2"){
+  runAddToExistingChannel = true
 }
 
-// Loop for adding new channel. Asking user to filter loan options
+// Loop for ADDING NEW CHANNEL. Asking user to filter loan options
   while(runAddNewChannel){
   
   //Running filter
@@ -105,15 +112,33 @@ if(mainMenuOption == "1"){
       pushNewLoanOptions = false
       addNewLoanOptionIds = true
     }
-  }
-  
-    
+  } 
 }
 
-  
+
+// Loop for ADDING TO EXISTING CHANNEL
+while(runAddToExistingChannel){
+  // Grabbing names of existing channels and storing them in an array
+  var existingChannels = Object.keys(config.loanOptionsMap)
+  // looping through channel names and displaying them for user
+  for(i = 0; i < existingChannels.length; i++){
+    console.log(`${i + 1}: ${existingChannels[i]}`);
+  }
+  // asking user for channel name selection
+  var selectedExistingChannel = prompt("Which channel would you like to add to? (specify number)")
+  var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
+  console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
+
+  // WORKING CODE TO ADD A LOAN OPTION TO AN EXISTING CHANNEL
+  // config.loanOptionsMap[nameSelectedExistingChannel].push("123")
+  // console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
+  runAddToExistingChannel = false
+}
+
       // stringifying our json object so we can write to a new file
       fs.writeFile("./newProposedConfig.json", JSON.stringify(config), err => {
       if (err) console.log("Error writing file:", err);
     });
     console.log("New proposed config written");
+
 });
