@@ -13,12 +13,17 @@ var searchRate = ""
 var searchTerm = ""
 var mainMenuOption = ""
 
+var runApp = true
 var runAddNewChannel = false
 var runAddToExistingChannel = false
-var runFilter = true
+var addNewLoanOptionIdsExisting = false
+var pushNewLoanOptionsExisting = false
+var runFilter = false
+var runFilterExisting = false
 var addNewLoanOptionIds = false
-var runAddLoanOptions = true
+var runAddLoanOptions = false
 var pushNewLoanOptions = false
+var runMainMenu = true
 
 //function to read in our json file and parse it
 function jsonReader(filePath, cb) {
@@ -42,98 +47,189 @@ jsonReader("./testClientConfig.json", (err, config) => {
     return;
   }
 
-// Main Menu
+  while(runApp){
+    // Main Menu
 
-console.log(("1: Create new channel and add new loan options to it" + "\n" + 
-"2: Add Loan Options to existing channel" + "\n" +
-"3: Reorganize channel" + "\n" +
-"4: Delete channel and archive loan options within them" + "\n" +
-"5: Save config file" + "\n"));
-mainMenuOption = prompt("Your input >> ") 
-
-
-// Main Menu controller
-if(mainMenuOption == "1"){
-  //Asking for name of channel to be created
-  nameOfNewChannel = prompt('Name of new channel?');
-  runAddNewChannel = true
-} else if(mainMenuOption == "2"){
-  runAddToExistingChannel = true
-}
-
-// Loop for ADDING NEW CHANNEL. Asking user to filter loan options
-  while(runAddNewChannel){
+while(runMainMenu){
+  console.log(("1: Create new channel and add new loan options to it" + "\n" + 
+  "2: Add Loan Options to existing channel" + "\n" +
+  "3: Reorganize channel" + "\n" +
+  "4: Delete channel and archive loan options within them" + "\n" +
+  "5: Save config file" + "\n"));
+  mainMenuOption = prompt("Your input >> ") 
   
-  //Running filter
-  while(runFilter){
-    searchRate = prompt('Rate? ');
-  searchTerm = prompt('Term? ');
-  // Output of filtered loan options
-  console.log("---------------- FILTERED OPTIONS ------------------ " );
-  for(var i=0; i < config.loanOptions.length; i++){
-    if(config.loanOptions[i].rate === searchRate && config.loanOptions[i].term === searchTerm){
-      console.log("\n" + "id: " + config.loanOptions[i].id + "\n"
-      + "productCode: " + config.loanOptions[i].productCode + "\n"
-      + "rate: " + config.loanOptions[i].rate + "\n"
-      + "term: " + config.loanOptions[i].term + "\n"
-      + "---------------------------------");
-    }
+  
+  // Main Menu controller
+  if(mainMenuOption == "1"){
+    runMainMenu = false
+    //Asking for name of channel to be created
+    nameOfNewChannel = prompt('Name of new channel?');
+    runAddNewChannel = true
+  } else if(mainMenuOption == "2"){
+    runMainMenu = false
+    runAddToExistingChannel = true
+  } else if(mainMenuOption == "5"){
+    runMainMenu = false
+    runApp = false
   }
-  runFilter = false
-  addNewLoanOptionIds = true
+  
+  
   }
-
-  while(addNewLoanOptionIds){
-    newLoanOptionIds = prompt("New loan option ids? (press q to go back to filter loan options) ")
-
-    if(newLoanOptionIds == "q"){
-      addNewLoanOptionIds = false
+  
+  
+  // Loop for ADDING NEW CHANNEL. Asking user to filter loan options
+    while(runAddNewChannel){
       runFilter = true
-    } else{
-      addNewLoanOptionIds = false
-      pushNewLoanOptions = true
-      runFilter = false     
+    //Running filter
+    while(runFilter){
+      searchRate = prompt('Rate? ');
+    searchTerm = prompt('Term? ');
+    // Output of filtered loan options
+    console.log("---------------- FILTERED OPTIONS ------------------ " );
+    for(var i=0; i < config.loanOptions.length; i++){
+      if(config.loanOptions[i].rate === searchRate && config.loanOptions[i].term === searchTerm){
+        console.log("\n" + "id: " + config.loanOptions[i].id + "\n"
+        + "productCode: " + config.loanOptions[i].productCode + "\n"
+        + "rate: " + config.loanOptions[i].rate + "\n"
+        + "term: " + config.loanOptions[i].term + "\n"
+        + "---------------------------------");
+      }
     }
+    runFilter = false
+    addNewLoanOptionIds = true
+    }
+  
+    while(addNewLoanOptionIds){
+      newLoanOptionIds = prompt("New loan option ids? (press q to go back to filter loan options, m to go back to main menu) ")
+  
+      if(newLoanOptionIds == "q"){
+        addNewLoanOptionIds = false
+        runFilter = true
+      } else if(newLoanOptionIds == "m"){
+        runAddNewChannel = false
+        addNewLoanOptionIds = false
+        runFilter = false
+        runMainMenu = true
+      } else {
+        addNewLoanOptionIds = false
+        pushNewLoanOptions = true
+        runFilter = false     
+      }
+    }
+  
+    while(pushNewLoanOptions){
+        //Adding new channel with loan option(s). Bracket notation must be used in order to use a variable
+    
+      newLoanOptionIdsArray.push(newLoanOptionIds)
+      config.loanOptionsMap[nameOfNewChannel] = newLoanOptionIdsArray
+  
+      console.log(`Pushed ${newLoanOptionIds} to ${nameOfNewChannel}`);
+    
+      addMoreLoanOptions = prompt(`Would you like to add more loan Options to ${nameOfNewChannel}?(y or n)`)
+      if (addMoreLoanOptions === "n"){
+        addNewLoanOptionIds = false
+        runAddNewChannel = false
+        pushNewLoanOptions = false
+        runMainMenu = true
+      } else {
+        pushNewLoanOptions = false
+        addNewLoanOptionIds = true
+      }
+    } 
   }
+  
+  
 
-  while(pushNewLoanOptions){
+
+  /////////////////// Loop for ADDING TO EXISTING CHANNEL/////////////
+  while(runAddToExistingChannel){
+    // Grabbing names of existing channels and storing them in an array
+    var existingChannels = Object.keys(config.loanOptionsMap)
+    // looping through channel names and displaying them for user
+    for(i = 0; i < existingChannels.length; i++){
+      console.log(`${i + 1}: ${existingChannels[i]}`);
+    }
+    // asking user for channel name selection
+    var selectedExistingChannel = prompt("Which channel would you like to add to? (specify number)")
+    var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
+    console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
+    runFilterExisting = true
+  
+    //Filter loan options
+    while(runFilterExisting){
+      searchRate = prompt('Rate? ');
+    searchTerm = prompt('Term? ');
+    // Output of filtered loan options
+    console.log("---------------- FILTERED OPTIONS ------------------ " );
+    for(var i=0; i < config.loanOptions.length; i++){
+      if(config.loanOptions[i].rate === searchRate && config.loanOptions[i].term === searchTerm){
+        console.log("\n" + "id: " + config.loanOptions[i].id + "\n"
+        + "productCode: " + config.loanOptions[i].productCode + "\n"
+        + "rate: " + config.loanOptions[i].rate + "\n"
+        + "term: " + config.loanOptions[i].term + "\n"
+        + "---------------------------------");
+      }
+    }
+    runFilterExisting = false
+    addNewLoanOptionIdsExisting = true
+    }
+  
+    //Choose loan option to add
+  
+    while(addNewLoanOptionIdsExisting){
+      newLoanOptionIds = prompt("New loan option ids? (press q to go back to filter loan options, m to go back to main menu) ")
+  
+      if(newLoanOptionIds == "q"){
+        addNewLoanOptionIdsExisting = false
+        runFilterExisting = true
+      }else if(newLoanOptionIds == "m"){
+        runAddToExistingChannel = false
+        addNewLoanOptionIdsExisting = false
+        runFilterExisting = false
+        runMainMenu = true
+      } else{
+        addNewLoanOptionIdsExisting = false
+        pushNewLoanOptionsExisting = true
+        runFilterExisting = false     
+      }
+    }
+  
+    //Add loan option to specified existing channel
+  
+    while(pushNewLoanOptionsExisting){
       //Adding new channel with loan option(s). Bracket notation must be used in order to use a variable
   
-    newLoanOptionIdsArray.push(newLoanOptionIds)
-    config.loanOptionsMap[nameOfNewChannel] = newLoanOptionIdsArray
-
-    console.log(`Pushed ${newLoanOptionIds} to ${nameOfNewChannel}`);
   
-    addMoreLoanOptions = prompt(`Would you like to add more loan Options to ${nameOfNewChannel}?(y or n)`)
+    config.loanOptionsMap[nameSelectedExistingChannel].push(newLoanOptionIds)
+    console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
+  
+    console.log(`Pushed ${newLoanOptionIds} to ${nameSelectedExistingChannel}`);
+  
+    //Ask if want to add another loan option to the existing channel
+  
+    addMoreLoanOptions = prompt(`Would you like to add more loan Options to ${nameSelectedExistingChannel}?(y or n)`)
     if (addMoreLoanOptions === "n"){
-      pushNewLoanOptions = false
-      runAddNewChannel = false
+      pushNewLoanOptionsExisting = false
+      addNewLoanOptionIdsExisting = false
+      runAddToExistingChannel = false
+      runFilterExisting = false
+      runMainMenu = true
     } else {
-      pushNewLoanOptions = false
-      addNewLoanOptionIds = true
+      pushNewLoanOptionsExisting = false
+      addNewLoanOptionIdsExisting = true
     }
   } 
-}
-
-
-// Loop for ADDING TO EXISTING CHANNEL
-while(runAddToExistingChannel){
-  // Grabbing names of existing channels and storing them in an array
-  var existingChannels = Object.keys(config.loanOptionsMap)
-  // looping through channel names and displaying them for user
-  for(i = 0; i < existingChannels.length; i++){
-    console.log(`${i + 1}: ${existingChannels[i]}`);
   }
-  // asking user for channel name selection
-  var selectedExistingChannel = prompt("Which channel would you like to add to? (specify number)")
-  var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
-  console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
+  }
 
-  // WORKING CODE TO ADD A LOAN OPTION TO AN EXISTING CHANNEL
-  // config.loanOptionsMap[nameSelectedExistingChannel].push("123")
-  // console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
-  runAddToExistingChannel = false
-}
+
+
+
+
+
+
+  
+/////////////////WRITING TO NEW JSON FILE WHEN DONE//////////////////////
 
       // stringifying our json object so we can write to a new file
       fs.writeFile("./newProposedConfig.json", JSON.stringify(config), err => {
