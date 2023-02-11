@@ -9,6 +9,8 @@ var nameOfNewChannel = "";
 var newLoanOptionIds = "";
 var addMoreLoanOptions = ""
 var newLoanOptionIdsArray = []
+var matchingLoanOptions= []
+var reorganizedChannelArr = []
 var searchRate = ""
 var searchTerm = ""
 var mainMenuOption = ""
@@ -24,6 +26,7 @@ var addNewLoanOptionIds = false
 var runAddLoanOptions = false
 var pushNewLoanOptions = false
 var runMainMenu = true
+var runReorganizeChannel = false
 
 //function to read in our json file and parse it
 function jsonReader(filePath, cb) {
@@ -53,9 +56,10 @@ jsonReader("./testClientConfig.json", (err, config) => {
 while(runMainMenu){
   console.log(("1: Create new channel and add new loan options to it" + "\n" + 
   "2: Add Loan Options to existing channel" + "\n" +
-  "3: Reorganize channel" + "\n" +
-  "4: Delete channel and archive loan options within them" + "\n" +
-  "5: Save config file" + "\n"));
+  "3: Remove Loan Options from existing channel" + "\n" +
+  "4: Reorganize channel" + "\n" +
+  "5: Delete channel and archive loan options within them" + "\n" +
+  "6: Save config file" + "\n"));
   mainMenuOption = prompt("Your input >> ") 
   
   
@@ -68,6 +72,9 @@ while(runMainMenu){
   } else if(mainMenuOption == "2"){
     runMainMenu = false
     runAddToExistingChannel = true
+  }else if(mainMenuOption == "4"){
+    runMainMenu = false
+    runReorganizeChannel = true
   } else if(mainMenuOption == "5"){
     runMainMenu = false
     runApp = false
@@ -220,7 +227,52 @@ while(runMainMenu){
     }
   } 
   }
+
+//////////////  REORGANIZE CHANNEL ////////////////////
+
+while(runReorganizeChannel){
+  // Grabbing names of existing channels and storing them in an array
+  var existingChannels = Object.keys(config.loanOptionsMap)
+  // looping through channel names and displaying them for user
+  for(i = 0; i < existingChannels.length; i++){
+    console.log(`${i + 1}: ${existingChannels[i]}`);
   }
+  // asking user for channel name selection
+  var selectedExistingChannel = prompt("Which channel would you like to reorganize? (specify number)")
+  var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
+  console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
+  runReorganizeChannel = false
+  runChannelReorganizationAction = true
+  }
+
+  // Reorganization of the selected channel
+  while(runChannelReorganizationAction){
+    // storing matching loan option objects into an array
+    for(let i = 0; i < config.loanOptionsMap[nameSelectedExistingChannel].length; i++){
+        var result = config.loanOptions.filter(obj => {
+          return obj.id == config.loanOptionsMap[nameSelectedExistingChannel][i]
+        }) 
+        matchingLoanOptions.push(result)   
+    }
+    // sorting array of matching loan option objects by term and rate
+    matchingLoanOptions.sort((a,b)=>(a[0].term-b[0].term || a[0].rate-b[0].rate));
+    // 
+    console.log("Sorted");
+    // pushing reorganized ids into a new array and setting the array to the selected channel
+    for(let b = 0; b < matchingLoanOptions.length; b++){
+      reorganizedChannelArr.push(matchingLoanOptions[b][0].id);
+    }
+    // Resetting arrays for next use and logging results for user
+    matchingLoanOptions = []
+    config.loanOptionsMap[nameSelectedExistingChannel] = reorganizedChannelArr
+    console.log(config.loanOptionsMap[nameSelectedExistingChannel])
+    reorganizedChannelArr = []
+    // setting run variables to false/true to return to main menu
+    runChannelReorganizationAction = false
+    runReorganizeChannel = false
+    runMainMenu = true
+  }
+}
 
 
 
