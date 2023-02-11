@@ -75,7 +75,7 @@ while(runMainMenu){
   }else if(mainMenuOption == "4"){
     runMainMenu = false
     runReorganizeChannel = true
-  } else if(mainMenuOption == "5"){
+  } else if(mainMenuOption == "6"){
     runMainMenu = false
     runApp = false
   }
