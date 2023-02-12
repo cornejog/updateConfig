@@ -7,6 +7,7 @@ const prompt = require('prompt-sync')();
 
 var nameOfNewChannel = "";
 var newLoanOptionIds = "";
+var removeOptionIds = ""
 var addMoreLoanOptions = ""
 var newLoanOptionIdsArray = []
 var matchingLoanOptions= []
@@ -18,15 +19,20 @@ var mainMenuOption = ""
 var runApp = true
 var runAddNewChannel = false
 var runAddToExistingChannel = false
+var runRemoveFromExistingChannel = false
+var removeOptionIdsExisting = false
+var selectedLoanOptionsExisting = false
 var addNewLoanOptionIdsExisting = false
 var pushNewLoanOptionsExisting = false
 var runFilter = false
 var runFilterExisting = false
+var runFilterExistingRemove = false
 var addNewLoanOptionIds = false
 var runAddLoanOptions = false
 var pushNewLoanOptions = false
 var runMainMenu = true
 var runReorganizeChannel = false
+var runChannelReorganizationAction = false
 
 //function to read in our json file and parse it
 function jsonReader(filePath, cb) {
@@ -72,6 +78,9 @@ while(runMainMenu){
   } else if(mainMenuOption == "2"){
     runMainMenu = false
     runAddToExistingChannel = true
+  }else if(mainMenuOption == "3"){
+    runMainMenu = false
+    runRemoveFromExistingChannel = true
   }else if(mainMenuOption == "4"){
     runMainMenu = false
     runReorganizeChannel = true
@@ -227,6 +236,97 @@ while(runMainMenu){
     }
   } 
   }
+
+
+
+
+
+
+  ///////////////////// REMOVE FROM EXISTING CHANNEL ////////////////////////////////
+  
+  while(runRemoveFromExistingChannel){
+    // Grabbing names of existing channels and storing them in an array
+    var existingChannels = Object.keys(config.loanOptionsMap)
+    // looping through channel names and displaying them for user
+    for(i = 0; i < existingChannels.length; i++){
+      console.log(`${i + 1}: ${existingChannels[i]}`);
+    }
+    // asking user for channel name selection
+    var selectedExistingChannel = prompt("Which channel would you like to remove from? (specify number)")
+    var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
+    console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
+    runFilterExistingRemove = true
+  
+    //Filter loan options
+    while(runFilterExistingRemove){
+    searchRate = prompt('Rate? ');
+    searchTerm = prompt('Term? ');
+    // Output of filtered loan options
+    console.log("---------------- FILTERED OPTIONS ------------------ " );
+    for(var i=0; i < config.loanOptions.length; i++){
+      if(config.loanOptions[i].rate === searchRate && config.loanOptions[i].term === searchTerm){
+        console.log("\n" + "id: " + config.loanOptions[i].id + "\n"
+        + "productCode: " + config.loanOptions[i].productCode + "\n"
+        + "rate: " + config.loanOptions[i].rate + "\n"
+        + "term: " + config.loanOptions[i].term + "\n"
+        + "---------------------------------");
+      }
+    }
+    runFilterExistingRemove = false
+    removeOptionIdsExisting = true
+    }
+
+    while(removeOptionIdsExisting){
+      removeOptionIds = prompt("Remove loan option ids? (press q to go back to filter loan options, m to go back to main menu) ")
+  
+      if(removeOptionIds == "q"){
+        removeOptionIdsExisting = false
+        runFilterExistingRemove = true
+      }else if(removeOptionIds == "m"){
+        runRemoveFromExistingChannel = false
+        removeOptionIdsExisting = false
+        runFilterExistingRemove = false
+        runMainMenu = true
+      } else{
+        removeOptionIdsExisting = false
+        selectedLoanOptionsExisting = true
+        runFilterExisting = false     
+      }
+    }
+  
+    //Remove loan option from specified existing channel
+  
+    while(selectedLoanOptionsExisting){
+      //Removing loan option from existing channel. Bracket notation must be used in order to use a variable
+  
+    for(let i = 0; i < config.loanOptionsMap[nameSelectedExistingChannel].length; i++){
+      if(config.loanOptionsMap[nameSelectedExistingChannel][i] == removeOptionIds){
+        config.loanOptionsMap[nameSelectedExistingChannel].splice(i,1)
+      }
+    }
+
+    console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
+  
+    console.log(`Removed ${removeOptionIds} from ${nameSelectedExistingChannel}`);
+  
+    //Ask if want to remove another loan option from the existing channel
+  
+    removeMoreLoanOptions = prompt(`Would you like to remove more loan Options from ${nameSelectedExistingChannel}?(y or n)`)
+    if (removeMoreLoanOptions == "n"){
+      selectedLoanOptionsExisting = false
+      removeOptionIdsExisting = false
+      runRemoveFromExistingChannel = false
+      runFilterExistingRemove = false
+      runMainMenu = true
+    } else {
+      selectedLoanOptionsExisting = false
+      removeOptionIdsExisting = true
+    }
+  }
+  }
+
+
+
 
 //////////////  REORGANIZE CHANNEL ////////////////////
 
