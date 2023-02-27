@@ -3,8 +3,11 @@
 const fs = require("fs");
 const { config } = require("process");
 const prompt = require('prompt-sync')();
+const testFolder = 'C:/Users/gcornejo/Desktop/updateConfig/updateConfig'
 
 // variables for storing data
+var filesArray = []
+var fileCounter = 0
 var nameOfNewChannel = "";
 var newLoanOptionIds = "";
 var removeOptionIds = ""
@@ -21,6 +24,7 @@ var selectedExistingChannel = ""
 // while loop variables
 var runApp = true
 var runAddNewChannel = false
+var runPromptNewChannelName = false
 var runAddMoreLoanOptionsToNewChannel = false
 var runAddToExistingChannel = false
 var runSelectExistingChannel = false
@@ -57,14 +61,25 @@ function jsonReader(filePath, cb) {
   });
 }
 
+fs.readdirSync(testFolder).forEach(file => {
+  console.log(fileCounter + " : " + file);
+  filesArray.push(file)
+  fileCounter++
+});
+
+var fileSelection = prompt("Which JSON File would you like to use?")
+console.log(filesArray[fileSelection] + "\n" + "\n");
+
 // Calling our json file function
-jsonReader("./testClientConfig.json", (err, config) => {
+jsonReader(`./${filesArray[fileSelection]}`, (err, config) => {
   if (err) {
     console.log(err);
     return;
   }
 
   while(runApp){
+
+
     // Main Menu
 
 while(runMainMenu){
@@ -82,6 +97,7 @@ while(runMainMenu){
     runMainMenu = false
     //Asking for name of channel to be created
       runAddNewChannel = true
+      runPromptNewChannelName = true
     
   } else if(mainMenuOption == "2"){
     runMainMenu = false
@@ -105,14 +121,17 @@ while(runMainMenu){
   
   ////////////////////////////////////// Loop for ADDING NEW CHANNEL. Asking user to filter loan options ///////////////////////////////////
     while(runAddNewChannel){
-      nameOfNewChannel = prompt('Name of new channel?');
-      if(nameOfNewChannel !== ""){
+
+      while(runPromptNewChannelName){
+        nameOfNewChannel = prompt('Name of new channel?');
+      if(nameOfNewChannel !== "" && nameOfNewChannel != null){
         runFilter = true
-        runAddNewChannel = false
+        runPromptNewChannelName = false
       } else {
         console.log("Please enter a name for the new channel. Can't be blank");
       }
-      
+      }
+           
     //Running filter
     while(runFilter){
     searchRate = prompt('Rate? ');
@@ -143,7 +162,7 @@ while(runMainMenu){
         addNewLoanOptionIds = false
         runFilter = false
         runMainMenu = true
-      } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === ""){
+      } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === "" || newLoanOptionIds == null){
         console.log("wrong Input");
         addNewLoanOptionIds = true
       } else {
@@ -175,7 +194,8 @@ while(runMainMenu){
           runAddMoreLoanOptionsToNewChannel = false
         } else if(addMoreLoanOptions === "y"){
           pushNewLoanOptions = false
-          addNewLoanOptionIds = true
+          runFilter = true
+          addNewLoanOptionIds = false
           runAddMoreLoanOptionsToNewChannel = false
         } else {
           console.log("Wrong input. Please enter y or n");
@@ -201,7 +221,7 @@ while(runMainMenu){
     // asking user for channel name selection
      selectedExistingChannel = prompt("Which channel would you like to add to? (specify number)")
     var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
-    if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === ""){
+    if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === "" || nameSelectedExistingChannel == null){
       console.log("Wrong Input. Please specify the correct number");
     } else {
       console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
@@ -243,10 +263,10 @@ while(runMainMenu){
         addNewLoanOptionIdsExisting = false
         runFilterExisting = false
         runMainMenu = true
-      } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === ""){
+      } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === "" || newLoanOptionIds == null){
         console.log("Wrong input. Please enter a loan option ID number, q or m");
         addNewLoanOptionIds = true
-      } else{
+      }  else{
         addNewLoanOptionIdsExisting = false
         pushNewLoanOptionsExisting = true
         runFilterExisting = false     
@@ -308,7 +328,7 @@ while(runMainMenu){
     // asking user for channel name selection
     selectedExistingChannel = prompt("Which channel would you like to remove from? (specify number)")
     var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
-    if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === ""){
+    if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === "" || selectedExistingChannel == null){
       console.log("Wrong Input. Please specify the correct number");
     } else {
       console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
@@ -349,7 +369,7 @@ while(runMainMenu){
         removeOptionIdsExisting = false
         runFilterExistingRemove = false
         runMainMenu = true
-      } else if(isNaN(removeOptionIds) || removeOptionIds === ""){
+      } else if(isNaN(removeOptionIds) || removeOptionIds === "" || removeOptionIds == null){
         console.log("Wrong input. Please enter a loan option ID number, q or m");
       } else{
         removeOptionIdsExisting = false
@@ -412,7 +432,7 @@ while(runReorganizeChannel){
   // asking user for channel name selection
   selectedExistingChannel = prompt("Which channel would you like to reorganize? (specify number)")
   
-  if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === ""){
+  if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === "" || selectedExistingChannel == null){
     console.log("Wrong Input. Please specify the correct number");
   } else {
     var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
@@ -462,7 +482,7 @@ while(runReorganizeChannel){
 /////////////////WRITING TO NEW JSON FILE WHEN DONE//////////////////////
 
       // stringifying our json object so we can write to a new file
-      fs.writeFile("./newProposedConfig.json", JSON.stringify(config), err => {
+      fs.writeFile(`./newProposed${filesArray[fileSelection]}`, JSON.stringify(config), err => {
       if (err) console.log("Error writing file:", err);
     });
     console.log("New proposed config written");
