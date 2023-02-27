@@ -124,7 +124,7 @@ while(runMainMenu){
 
       while(runPromptNewChannelName){
         nameOfNewChannel = prompt('Name of new channel?');
-      if(nameOfNewChannel !== ""){
+      if(nameOfNewChannel !== "" && nameOfNewChannel != null){
         runFilter = true
         runPromptNewChannelName = false
       } else {
@@ -162,7 +162,7 @@ while(runMainMenu){
         addNewLoanOptionIds = false
         runFilter = false
         runMainMenu = true
-      } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === ""){
+      } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === "" || newLoanOptionIds == null){
         console.log("wrong Input");
         addNewLoanOptionIds = true
       } else {
@@ -221,7 +221,7 @@ while(runMainMenu){
     // asking user for channel name selection
      selectedExistingChannel = prompt("Which channel would you like to add to? (specify number)")
     var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
-    if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === ""){
+    if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === "" || nameSelectedExistingChannel == null){
       console.log("Wrong Input. Please specify the correct number");
     } else {
       console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
@@ -263,10 +263,10 @@ while(runMainMenu){
         addNewLoanOptionIdsExisting = false
         runFilterExisting = false
         runMainMenu = true
-      } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === ""){
+      } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === "" || newLoanOptionIds == null){
         console.log("Wrong input. Please enter a loan option ID number, q or m");
         addNewLoanOptionIds = true
-      } else{
+      }  else{
         addNewLoanOptionIdsExisting = false
         pushNewLoanOptionsExisting = true
         runFilterExisting = false     
@@ -328,7 +328,7 @@ while(runMainMenu){
     // asking user for channel name selection
     selectedExistingChannel = prompt("Which channel would you like to remove from? (specify number)")
     var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
-    if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === ""){
+    if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === "" || selectedExistingChannel == null){
       console.log("Wrong Input. Please specify the correct number");
     } else {
       console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
@@ -369,7 +369,7 @@ while(runMainMenu){
         removeOptionIdsExisting = false
         runFilterExistingRemove = false
         runMainMenu = true
-      } else if(isNaN(removeOptionIds) || removeOptionIds === ""){
+      } else if(isNaN(removeOptionIds) || removeOptionIds === "" || removeOptionIds == null){
         console.log("Wrong input. Please enter a loan option ID number, q or m");
       } else{
         removeOptionIdsExisting = false
@@ -432,7 +432,7 @@ while(runReorganizeChannel){
   // asking user for channel name selection
   selectedExistingChannel = prompt("Which channel would you like to reorganize? (specify number)")
   
-  if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === ""){
+  if(selectedExistingChannel > existingChannels.length || isNaN(selectedExistingChannel) || selectedExistingChannel === "" || selectedExistingChannel == null){
     console.log("Wrong Input. Please specify the correct number");
   } else {
     var nameSelectedExistingChannel = existingChannels[selectedExistingChannel - 1]
