@@ -45,6 +45,7 @@ var pushNewLoanOptions = false
 var runMainMenu = true
 var runReorganizeChannel = false
 var runChannelReorganizationAction = false
+var runSaveConfigFile = false
 
 //function to read in our json file and parse it
 function jsonReader(filePath, cb) {
@@ -83,7 +84,8 @@ jsonReader(`./${filesArray[fileSelection]}`, (err, config) => {
     // Main Menu
 
 while(runMainMenu){
-  console.log(("1: Create new channel and add new loan options to it" + "\n" + 
+  console.log(("0: Exit program" + "\n" + 
+  "1: Create new channel and add new loan options to it" + "\n" +
   "2: Add Loan Options to existing channel" + "\n" +
   "3: Remove Loan Options from existing channel" + "\n" +
   "4: Reorganize channel" + "\n" +
@@ -93,12 +95,15 @@ while(runMainMenu){
   
   
   // Main Menu controller
-  if(mainMenuOption == "1"){
+  if(mainMenuOption == "0"){
+    runMainMenu = false
+    runApp = false
+  }
+   else if(mainMenuOption == "1"){
     runMainMenu = false
     //Asking for name of channel to be created
       runAddNewChannel = true
       runPromptNewChannelName = true
-    
   } else if(mainMenuOption == "2"){
     runMainMenu = false
     runSelectExistingChannel = true
@@ -113,6 +118,7 @@ while(runMainMenu){
   } else if(mainMenuOption == "6"){
     runMainMenu = false
     runApp = false
+    runSaveConfigFile = true
   }
   
   
@@ -140,12 +146,18 @@ while(runMainMenu){
     console.log("---------------- FILTERED OPTIONS ------------------ " );
     for(var i=0; i < config.loanOptions.length; i++){
       if(config.loanOptions[i].rate === searchRate && config.loanOptions[i].term === searchTerm){
-        console.log("\n" + "id: " + config.loanOptions[i].id + "\n"
-        + "productCode: " + config.loanOptions[i].productCode + "\n"
-        + "rate: " + config.loanOptions[i].rate + "\n"
-        + "term: " + config.loanOptions[i].term + "\n"
-        + "---------------------------------");
-      }
+        if(config.loanOptions[i].isSub650 == undefined){
+            console.log("\n" + "id: " + config.loanOptions[i].id + "\n"
+            + "productCode: " + config.loanOptions[i].productCode + "\n"
+            + "categoryCode: " + config.loanOptions[i].categoryCode + "\n"
+            + "rate: " + config.loanOptions[i].rate + "\n"
+            + "term: " + config.loanOptions[i].term + "\n"
+            + "isArchived: " + config.loanOptions[i].isArchived + "\n"
+            + "isSub650: " + config.loanOptions[i].isSub650 + "\n"
+            + "---------------------------------");
+        }
+        }
+        
     }
     runFilter = false
     addNewLoanOptionIds = true
@@ -161,6 +173,7 @@ while(runMainMenu){
         runAddNewChannel = false
         addNewLoanOptionIds = false
         runFilter = false
+        newLoanOptionIdsArray = []
         runMainMenu = true
       } else if(isNaN(newLoanOptionIds) || newLoanOptionIds === "" || newLoanOptionIds == null){
         console.log("wrong Input");
@@ -180,6 +193,15 @@ while(runMainMenu){
   
       console.log(`Pushed ${newLoanOptionIds} to ${nameOfNewChannel}`);
 
+      for(var i=0; i < config.loanOptions.length; i++){
+        if(config.loanOptions[i].id == newLoanOptionIds){
+          if(config.loanOptions[i].isArchived == true){
+            config.loanOptions[i].isArchived = false
+            console.log(`Unarchived loan option ${config.loanOptions[i].id}`)
+          }
+        }
+      }
+
       console.log(`${nameOfNewChannel}`) 
       console.log(config.loanOptionsMap[nameOfNewChannel])
       runAddMoreLoanOptionsToNewChannel = true
@@ -191,6 +213,7 @@ while(runMainMenu){
           runAddNewChannel = false
           pushNewLoanOptions = false
           runMainMenu = true
+          newLoanOptionIdsArray = []
           runAddMoreLoanOptionsToNewChannel = false
         } else if(addMoreLoanOptions === "y"){
           pushNewLoanOptions = false
@@ -241,8 +264,11 @@ while(runMainMenu){
       if(config.loanOptions[i].rate === searchRate && config.loanOptions[i].term === searchTerm){
         console.log("\n" + "id: " + config.loanOptions[i].id + "\n"
         + "productCode: " + config.loanOptions[i].productCode + "\n"
+        + "categoryCode: " + config.loanOptions[i].categoryCode + "\n"
         + "rate: " + config.loanOptions[i].rate + "\n"
         + "term: " + config.loanOptions[i].term + "\n"
+        + "isArchived: " + config.loanOptions[i].isArchived + "\n"
+        + "isSub650: " + config.loanOptions[i].isSub650 + "\n"
         + "---------------------------------");
       }
     }
@@ -283,6 +309,14 @@ while(runMainMenu){
     console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
   
     console.log(`Pushed ${newLoanOptionIds} to ${nameSelectedExistingChannel}`);
+    for(var i=0; i < config.loanOptions.length; i++){
+      if(config.loanOptions[i].id == newLoanOptionIds){
+        if(config.loanOptions[i].isArchived == true){
+          config.loanOptions[i].isArchived = false
+          console.log(`Unarchived loan option ${config.loanOptions[i].id}`)
+        }
+      }
+    }
     runAddMoreLoanOptionsToExistingChannel = true
 
 
@@ -349,8 +383,11 @@ while(runMainMenu){
       if(config.loanOptions[i].rate === searchRate && config.loanOptions[i].term === searchTerm){
         console.log("\n" + "id: " + config.loanOptions[i].id + "\n"
         + "productCode: " + config.loanOptions[i].productCode + "\n"
+        + "categoryCode: " + config.loanOptions[i].categoryCode + "\n"
         + "rate: " + config.loanOptions[i].rate + "\n"
         + "term: " + config.loanOptions[i].term + "\n"
+        + "isArchived: " + config.loanOptions[i].isArchived + "\n"
+        + "isSub650: " + config.loanOptions[i].isSub650 + "\n"
         + "---------------------------------");
       }
     }
@@ -470,21 +507,21 @@ while(runReorganizeChannel){
     runReorganizeChannel = false
     runMainMenu = true
   }
-}
 
+  /////////////////WRITING TO NEW JSON FILE WHEN DONE//////////////////////
 
-
-
-
-
-
-  
-/////////////////WRITING TO NEW JSON FILE WHEN DONE//////////////////////
-
-      // stringifying our json object so we can write to a new file
-      fs.writeFile(`./newProposed${filesArray[fileSelection]}`, JSON.stringify(config), err => {
+  while(runSaveConfigFile){
+    // stringifying our json object so we can write to a new file
+    fs.writeFile(`./newProposed${filesArray[fileSelection]}`, JSON.stringify(config), err => {
       if (err) console.log("Error writing file:", err);
     });
     console.log("New proposed config written");
+    runSaveConfigFile = false
+  }
+
+      
+}
+
+console.log("Goodbye!");
 
 });
