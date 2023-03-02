@@ -193,6 +193,15 @@ while(runMainMenu){
   
       console.log(`Pushed ${newLoanOptionIds} to ${nameOfNewChannel}`);
 
+      for(var i=0; i < config.loanOptions.length; i++){
+        if(config.loanOptions[i].id == newLoanOptionIds){
+          if(config.loanOptions[i].isArchived == true){
+            config.loanOptions[i].isArchived = false
+            console.log(`Unarchived loan option ${config.loanOptions[i].id}`)
+          }
+        }
+      }
+
       console.log(`${nameOfNewChannel}`) 
       console.log(config.loanOptionsMap[nameOfNewChannel])
       runAddMoreLoanOptionsToNewChannel = true
@@ -300,6 +309,14 @@ while(runMainMenu){
     console.log(config.loanOptionsMap[nameSelectedExistingChannel]);
   
     console.log(`Pushed ${newLoanOptionIds} to ${nameSelectedExistingChannel}`);
+    for(var i=0; i < config.loanOptions.length; i++){
+      if(config.loanOptions[i].id == newLoanOptionIds){
+        if(config.loanOptions[i].isArchived == true){
+          config.loanOptions[i].isArchived = false
+          console.log(`Unarchived loan option ${config.loanOptions[i].id}`)
+        }
+      }
+    }
     runAddMoreLoanOptionsToExistingChannel = true
 
 
