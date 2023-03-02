@@ -1,0 +1,1971 @@
+{
+ "id": "BobBoldtHVACLLC",
+ "communicationOptions": {
+  "admin": "rachel@bobhvac.com",
+  "events": {
+   "ApplicationSubmitted": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "ContractSigned": [
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "ContractUploaded": [
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "DocsCompleted": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "WEBHOOK"
+    },
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    }
+   ],
+   "DocsRequested": [
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "DocsSent": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "WEBHOOK"
+    },
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    }
+   ],
+   "DocsSigned": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "DocsSubmitted": [
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "DocsViewed": [
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "DocsVoided": [
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "FundingRequested": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "InstallationComplete": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "LoanApproved": [
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "LoanApprovedWithStips": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "LoanCanceled": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "LoanDeclined": [
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "LoanFunded": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "LoanPending": [
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    },
+    {
+     "method": "EMAIL",
+     "target": "pending@goodleap.com"
+    }
+   ],
+   "NtpComplete": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "PreScreenFailed": [
+    {
+     "method": "EMAIL",
+     "target": "SALESREP"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "PtoComplete": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    },
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "ReadyToFund": [
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "ReviewEscalated": [
+    {
+     "method": "EMAIL",
+     "target": "pending@goodleap.com"
+    }
+   ],
+   "ReviewFailed": [
+    {
+     "method": "EMAIL",
+     "target": "ADMIN"
+    }
+   ],
+   "SystemDescriptionUpdated": [
+    {
+     "method": "WEBHOOK"
+    }
+   ],
+   "SystemVerified": [
+    {
+     "method": "WEBHOOK"
+    }
+   ]
+  },
+  "reports": {
+   "DailyActivity": {
+    "argSets": [
+    ],
+    "enabled": true,
+    "targets": [
+     {
+      "method": "EMAIL",
+      "target": "ADMIN"
+     }
+    ]
+   },
+   "LoansFunded": {
+    "argSets": [
+    ],
+    "enabled": true,
+    "targets": [
+     {
+      "method": "EMAIL",
+      "target": "ADMIN"
+     }
+    ]
+   }
+  },
+  "webhook-Disabled": {
+   "authHeaderKey": "Authorization",
+   "authToken": "my-sup3r-s3kr3t-auth-tom3n",
+   "url": "https://api.parter.com/partners/loanpal/hooks"
+  }
+ },
+ "crm": {
+  "event": {
+   "InstallationComplete": {
+    "action": [
+     {
+      "name": "PtoReminder",
+      "schedule": {
+       "75": [
+        "admin"
+       ],
+       "100": [
+        "admin"
+       ]
+      }
+     }
+    ]
+   },
+   "LoanApproved": {
+    "action": [
+     {
+      "name": "CreditExpiryReminder",
+      "schedule": {
+       "loan.createdAt+170": [
+        "coBorrower",
+        "borrower",
+        "admin",
+        "salesRep"
+       ]
+      }
+     }
+    ]
+   }
+  }
+ },
+ "features": {
+  "fireSwitch": {
+   "enabled": true,
+   "ssns": [
+    "*"
+   ]
+  },
+  "sub650": true
+ },
+ "fundingOptions": {
+  "bankInfo": {
+   "accountName": "Bob Boldt HVAC LLC",
+   "accountNumber": "1110170810",
+   "bankName": "Minnwest Bank",
+   "routingNumber": "091915845"
+  },
+  "milestones": {
+   "1": {
+    "fundingPct": 100,
+    "invoice": false,
+    "netProgramFee": true
+   }
+  }
+ },
+ "installationCategories": [
+  "HI_1"
+ ],
+ "loanOptions": [
+  {
+   "id": "1",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "0.50",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "b87ed504-dc7b-4c53-8ab2-3d5eb5ce45bf",
+   "productCode": "EQUAL_PAY",
+   "productId": "75267449-65d2-4b7f-aa42-3e2a9d80a4d7",
+   "programFee": 13.5,
+   "rate": "0.00",
+   "sub650Id": "54",
+   "term": "2"
+  },
+  {
+   "id": "2",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "0.50",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "0cb4fac3-b1cf-4d95-8a6c-3db23d1260ec",
+   "productCode": "EQUAL_PAY",
+   "productId": "75267449-65d2-4b7f-aa42-3e2a9d80a4d7",
+   "programFee": 16.5,
+   "rate": "0.00",
+   "sub650Id": "54",
+   "term": "3"
+  },
+  {
+   "id": "3",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "0.50",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "1766b344-b382-4cfb-a91e-4490d134991e",
+   "productCode": "EQUAL_PAY",
+   "productId": "75267449-65d2-4b7f-aa42-3e2a9d80a4d7",
+   "programFee": 19.5,
+   "rate": "0.00",
+   "sub650Id": "54",
+   "term": "4"
+  },
+  {
+   "id": "4",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "0.50",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "26f87d0a-14ee-45f6-a15b-fd15175cb5de",
+   "productCode": "EQUAL_PAY",
+   "productId": "75267449-65d2-4b7f-aa42-3e2a9d80a4d7",
+   "programFee": 22,
+   "rate": "0.00",
+   "sub650Id": "54",
+   "term": "5"
+  },
+  {
+   "id": "5",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "0.50",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "78077063-2750-4e5b-bf8e-d24cbfdc46bd",
+   "productCode": "EQUAL_PAY",
+   "productId": "75267449-65d2-4b7f-aa42-3e2a9d80a4d7",
+   "programFee": 24.75,
+   "rate": "0.00",
+   "sub650Id": "54",
+   "term": "6"
+  },
+  {
+   "id": "6",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "6.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "1d526569-c68e-4ce8-bd74-0e2580e18c65",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 11.75,
+   "rate": "5.99",
+   "sub650Id": "54",
+   "term": "5"
+  },
+  {
+   "id": "7",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "82071b9a-480c-4d7f-a5d0-35458d48cfea",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 9.25,
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "5"
+  },
+  {
+   "id": "8",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "77c6eef8-6235-4c9f-9162-d7f904532601",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 6.25,
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "5"
+  },
+  {
+   "id": "9",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "e81f441e-3975-4f83-895a-93545cd8b029",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 5,
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "5"
+  },
+  {
+   "id": "10",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "3271894c-0bdd-4a82-aa05-42e1a31dc9ab",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 0
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 3
+    }
+   ],
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "5"
+  },
+  {
+   "id": "11",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "6.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "a39acbde-6db2-4a56-af4d-ebf51aa41db2",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 12.75,
+   "rate": "5.99",
+   "sub650Id": "54",
+   "term": "7"
+  },
+  {
+   "id": "12",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "023ffb12-ed42-48d3-9340-fd8e5dcbd4f8",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 9.75,
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "7"
+  },
+  {
+   "id": "13",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "d9cebe48-e31d-476c-bb99-235cc9b3cc3d",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 6.75
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 7.25
+    }
+   ],
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "7"
+  },
+  {
+   "id": "14",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "13ec811d-f8fb-4a8d-b2cf-2c20eea01340",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 5,
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "7"
+  },
+  {
+   "id": "15",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "1de4338f-7cb0-4050-88af-7463ad6aa414",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 0
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 3
+    }
+   ],
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "7"
+  },
+  {
+   "id": "16",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "6.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "47ce6d06-b7e0-406b-9b6f-8977ee3d8f1d",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 13.75,
+   "rate": "5.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "17",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "a6b11660-f0c1-4c39-85ff-7b525e54b45b",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 10.75,
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "18",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "e8d706c4-123b-4672-8898-901432c1698d",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 7.75
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 8.25
+    }
+   ],
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "19",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "78470d2e-8018-4071-933c-c0e43ea37cbf",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 5,
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "20",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "ef5c77fe-7321-4588-a46d-22a7e3f5e8ef",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 0
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 3
+    }
+   ],
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "21",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "1ab22178-e7ca-4c83-8770-8d55a5bd005d",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 11.25
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 11.5
+    }
+   ],
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "12"
+  },
+  {
+   "id": "22",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "152aaf07-bcf6-4447-91f4-5b769d007067",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 8.25
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 8.75
+    }
+   ],
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "12"
+  },
+  {
+   "id": "23",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "1fdb8b21-07ad-4737-bdd4-9385f76079fd",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 5,
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "12"
+  },
+  {
+   "id": "24",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "f1ced567-e4c3-40e4-8aa3-8fbc5ef1b82c",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 0
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 3
+    }
+   ],
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "12"
+  },
+  {
+   "id": "25",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "6.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "7098be8a-88dc-4060-a45c-4f64ccb2256c",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 12.25,
+   "rate": "5.99",
+   "sub650Id": "54",
+   "term": "15"
+  },
+  {
+   "id": "26",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "060bc11f-29da-453d-8348-f408612a4ac6",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 12.25,
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "15"
+  },
+  {
+   "id": "27",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "d25403c5-53c4-4ef8-9402-9df462d45e3b",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 8.75
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 9
+    }
+   ],
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "15"
+  },
+  {
+   "id": "28",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "cb4fd0c9-3870-4883-bc0c-feb5fd696942",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 5,
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "15"
+  },
+  {
+   "id": "29",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "partnerOfferId": "f550f2bb-7cf1-4386-a1b3-3de3944ffcde",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": [
+    {
+     "value": 0
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 3
+    }
+   ],
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "15"
+  },
+  {
+   "id": "30",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "e9848bd2-5d2e-4e7f-9e80-08f1d1d88d70",
+   "productCode": "DEFERRED_PI_IF_PAID_6MO",
+   "productId": "fb07340d-b790-4317-bba5-da2e6d45f6f4",
+   "programFee": 12.75,
+   "promotionalPeriod": 6,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "31",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "f73a9bca-3361-4622-9d5c-b9085122dc33",
+   "productCode": "DEFERRED_PI_IF_PAID_6MO",
+   "productId": "fb07340d-b790-4317-bba5-da2e6d45f6f4",
+   "programFee": 9.75,
+   "promotionalPeriod": 6,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "32",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "f5548eb8-4bfa-45ca-9a23-1a77b833ebc8",
+   "productCode": "DEFERRED_PI_IF_PAID_6MO",
+   "productId": "fb07340d-b790-4317-bba5-da2e6d45f6f4",
+   "programFee": 8.25,
+   "promotionalPeriod": 6,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "33",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "6bcd03f3-1520-4a20-a68e-7af884d45a10",
+   "productCode": "DEFERRED_PI_IF_PAID_6MO",
+   "productId": "fb07340d-b790-4317-bba5-da2e6d45f6f4",
+   "programFee": [
+    {
+     "value": 7.25
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 9.25
+    }
+   ],
+   "promotionalPeriod": 6,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "34",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "744bed2b-3ba0-4291-884b-aa31f3364ff8",
+   "productCode": "DEFERRED_PI_IF_PAID_6MO",
+   "productId": "fb07340d-b790-4317-bba5-da2e6d45f6f4",
+   "programFee": 5.75,
+   "promotionalPeriod": 6,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "35",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "8817e39a-f9e2-4b62-8efe-a5e590e5fea2",
+   "productCode": "DEFERRED_PI_IF_PAID_6MO",
+   "productId": "fb07340d-b790-4317-bba5-da2e6d45f6f4",
+   "programFee": [
+    {
+     "value": 4.5
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 8.25
+    }
+   ],
+   "promotionalPeriod": 6,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "11.49",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "36",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "e25aeec8-96f2-49e8-8f82-fd70c48b1698",
+   "productCode": "DEFERRED_PI_IF_PAID_12MO",
+   "productId": "a941a76b-10f2-4c26-9ab9-a5bdd1140e22",
+   "programFee": 13.25,
+   "promotionalPeriod": 12,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "37",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "58d21c0f-4cf1-4c2f-a5be-d18c2f688b0f",
+   "productCode": "DEFERRED_PI_IF_PAID_12MO",
+   "productId": "a941a76b-10f2-4c26-9ab9-a5bdd1140e22",
+   "programFee": 10.75,
+   "promotionalPeriod": 12,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "38",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "e9aa35de-e898-4aca-affd-f779545c0e0e",
+   "productCode": "DEFERRED_PI_IF_PAID_12MO",
+   "productId": "a941a76b-10f2-4c26-9ab9-a5bdd1140e22",
+   "programFee": 8.75,
+   "promotionalPeriod": 12,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "39",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "40ab2348-ed64-4a2b-8fac-4dd5593ad12f",
+   "productCode": "DEFERRED_PI_IF_PAID_12MO",
+   "productId": "a941a76b-10f2-4c26-9ab9-a5bdd1140e22",
+   "programFee": [
+    {
+     "value": 7.75
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 11.25
+    }
+   ],
+   "promotionalPeriod": 12,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "40",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "dbe6f8c8-da62-471a-b741-6513c9d96739",
+   "productCode": "DEFERRED_PI_IF_PAID_12MO",
+   "productId": "a941a76b-10f2-4c26-9ab9-a5bdd1140e22",
+   "programFee": 6.25,
+   "promotionalPeriod": 12,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "41",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "26bbce4e-51c5-4337-81bd-f4b63a1053f0",
+   "productCode": "DEFERRED_PI_IF_PAID_12MO",
+   "productId": "a941a76b-10f2-4c26-9ab9-a5bdd1140e22",
+   "programFee": [
+    {
+     "value": 5.5
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 10.25
+    }
+   ],
+   "promotionalPeriod": 12,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "11.49",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "42",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "efcdbcbf-fe76-4c04-a0c9-096420874dcb",
+   "productCode": "DEFERRED_PI_IF_PAID_18MO",
+   "productId": "ff266021-32b5-41a1-be30-aa662591a634",
+   "programFee": 14.25,
+   "promotionalPeriod": 18,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "43",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "2feed12e-32c0-4357-981b-3a8bbf1ae47e",
+   "productCode": "DEFERRED_PI_IF_PAID_18MO",
+   "productId": "ff266021-32b5-41a1-be30-aa662591a634",
+   "programFee": 11.75,
+   "promotionalPeriod": 18,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "44",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "3e68a779-dfb6-4eae-84a2-97c74a21aec5",
+   "productCode": "DEFERRED_PI_IF_PAID_18MO",
+   "productId": "ff266021-32b5-41a1-be30-aa662591a634",
+   "programFee": 9.75,
+   "promotionalPeriod": 18,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "45",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "89b263df-5130-4820-b0c9-f74f8fc9abd5",
+   "productCode": "DEFERRED_PI_IF_PAID_18MO",
+   "productId": "ff266021-32b5-41a1-be30-aa662591a634",
+   "programFee": [
+    {
+     "value": 8.75
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 13.25
+    }
+   ],
+   "promotionalPeriod": 18,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "46",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "c67a13b4-c923-4ba8-bcdf-d11634870076",
+   "productCode": "DEFERRED_PI_IF_PAID_18MO",
+   "productId": "ff266021-32b5-41a1-be30-aa662591a634",
+   "programFee": 7.25,
+   "promotionalPeriod": 18,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "47",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "partnerOfferId": "dc44af78-34a4-4e95-8e69-c50562f5d221",
+   "productCode": "DEFERRED_PI_IF_PAID_18MO",
+   "productId": "ff266021-32b5-41a1-be30-aa662591a634",
+   "programFee": [
+    {
+     "value": 6.5
+    },
+    {
+     "approvedAt": "2022-11-03",
+     "value": 12.25
+    }
+   ],
+   "promotionalPeriod": 18,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "11.49",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "48",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "isSub650": true,
+   "partnerOfferId": "80d588c1-163b-43aa-acf2-bc5e8d3391fb",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 18.25,
+   "rate": "10.99",
+   "term": "10"
+  },
+  {
+   "id": "49",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "isSub650": true,
+   "partnerOfferId": "870edae8-6751-441f-9b8c-eec5707ba9ff",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 16.75,
+   "rate": "11.49",
+   "term": "10"
+  },
+  {
+   "id": "50",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "12.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "isSub650": true,
+   "partnerOfferId": "e8dc89df-51ec-4b27-a18d-ed1af44b11c8",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 15.5,
+   "rate": "11.99",
+   "term": "10"
+  },
+  {
+   "id": "51",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "13.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "isSub650": true,
+   "partnerOfferId": "a24fe139-396a-44cd-b8fc-85c2d7e57a9a",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 12,
+   "rate": "12.99",
+   "term": "10"
+  },
+  {
+   "id": "52",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "14.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "isSub650": true,
+   "partnerOfferId": "1342b720-624d-4c28-95e9-269e6ad78e53",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 9.5,
+   "rate": "13.99",
+   "term": "10"
+  },
+  {
+   "id": "53",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "15.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "isSub650": true,
+   "partnerOfferId": "91f48ad3-d826-40f1-913e-1bbadd7a3c57",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 7.5,
+   "rate": "14.99",
+   "term": "10"
+  },
+  {
+   "id": "54",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "15.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": false,
+   "isSub650": true,
+   "partnerOfferId": "fe06ec7b-475a-4288-96f9-aada0aab5c3f",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 5,
+   "rate": "15.49",
+   "term": "10"
+  },
+  {
+   "id": "55",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "partnerOfferId": "0e9b2d76-2387-41e3-9d76-be20ece47811",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "56",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "5d334dda-43d6-4836-bbdb-7fe9f8764bd2",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "11.49",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "57",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "13.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "d3ab0a3e-91f6-41bf-8432-b9162aa9bea6",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "12.99",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "58",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "15.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "ad094be0-5a5a-4816-9218-0157db84d54f",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "15.49",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "59",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "partnerOfferId": "7b3da616-edea-4bcc-a430-ba65d6db8d74",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "12"
+  },
+  {
+   "id": "60",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "partnerOfferId": "a527c062-e7ad-492a-8737-1546c4a40e3c",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "15"
+  },
+  {
+   "id": "61",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "ee72b47e-c353-4f50-8e12-1f38b4b88e7a",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 2,
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "20"
+  },
+  {
+   "id": "62",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "266f3c5d-7f6b-4678-8e30-e82ac6d1c2a1",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "11.49",
+   "sub650Id": "54",
+   "term": "20"
+  },
+  {
+   "id": "63",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "7.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "0ac706a8-42bd-4af0-b4ff-7a81b7ca462a",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 14.5,
+   "rate": "6.99",
+   "sub650Id": "54",
+   "term": "20"
+  },
+  {
+   "id": "64",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "8.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "49b4f110-b671-4a97-9686-a43f6cb60362",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 11.25,
+   "rate": "7.99",
+   "sub650Id": "54",
+   "term": "20"
+  },
+  {
+   "id": "65",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "9.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "36ff285a-8c78-41b4-bd39-ea9dad3c80fa",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 7.75,
+   "rate": "8.99",
+   "sub650Id": "54",
+   "term": "20"
+  },
+  {
+   "id": "66",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "10.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "66b9599d-0cd3-4845-93ed-dde1759ea79b",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 5,
+   "rate": "9.99",
+   "sub650Id": "54",
+   "term": "20"
+  },
+  {
+   "id": "67",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "partnerOfferId": "ce4e90d8-5c55-4c45-a9e9-6f4290ebb361",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "5"
+  },
+  {
+   "id": "68",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "11.49",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "partnerOfferId": "abff942b-7ebb-4d8d-ad09-c64757e66b04",
+   "productCode": "STANDARD_PI",
+   "productId": "27b0ec39-46c1-45d5-a52b-75d3e702984b",
+   "programFee": 0,
+   "rate": "10.99",
+   "sub650Id": "54",
+   "term": "7"
+  },
+  {
+   "id": "69",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "15.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "10cd60e2-a604-4b05-a76d-1b30fb28d1cf",
+   "productCode": "DEFERRED_PI_IF_PAID_6MO",
+   "productId": "fb07340d-b790-4317-bba5-da2e6d45f6f4",
+   "programFee": 6.5,
+   "promotionalPeriod": 6,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "15.49",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "70",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "15.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "isArchived": true,
+   "partnerOfferId": "1d6e7642-a8ca-40e7-873b-1a22cbadce09",
+   "productCode": "DEFERRED_PI_IF_PAID_12MO",
+   "productId": "a941a76b-10f2-4c26-9ab9-a5bdd1140e22",
+   "programFee": 8,
+   "promotionalPeriod": 12,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "15.49",
+   "sub650Id": "54",
+   "term": "10"
+  },
+  {
+   "id": "71",
+   "appliedPromotionIds": [
+    "26d09475-32ec-448c-bb43-9f70aea55644"
+   ],
+   "baseRate": "15.99",
+   "categoryCode": "HI_1",
+   "categoryId": "f7b59918-85f4-40a8-a300-6a4d13a0cfc1",
+   "installationCategories": [
+    "HI_1"
+   ],
+   "partnerOfferId": "a55f2634-6fca-405c-bafa-9e5efdda463c",
+   "productCode": "DEFERRED_PI_IF_PAID_18MO",
+   "productId": "ff266021-32b5-41a1-be30-aa662591a634",
+   "programFee": 10.5,
+   "promotionalPeriod": 18,
+   "promotionalPeriodInterval": "mo",
+   "promotionalPeriodType": "intro",
+   "rate": "15.49",
+   "sub650Id": "54",
+   "term": "10"
+  }
+ ],
+ "loanOptionsMap": {
+  "Promo": [
+   "71"
+  ],
+  "Standard": [
+   "60",
+   "67",
+   "68",
+   "55",
+   "59"
+  ]
+ },
+ "name": "Bob Boldt HVAC LLC",
+ "organizationId": "a5479911-3a9e-4f28-8756-1bdd8000066c",
+ "productTypes": [
+  "HI_1"
+ ],
+ "salesforce": {
+  "accountId": "0015G00002C0N8bQAF"
+ },
+ "sourceOptions": [
+ ],
+ "underwritingStipProfileConfig": [
+  {
+   "Category": "HI_1",
+   "StipProfileId": "13f5988b-3f1c-43fb-8890-7282cf5a5f90"
+  },
+  {
+   "Category": "ROOF_1",
+   "StipProfileId": "13f5988b-3f1c-43fb-8890-7282cf5a5f90"
+  }
+ ],
+ "vitalInfo": {
+  "address": {
+   "city": "Burnsville",
+   "state": "MN",
+   "street": "12651 Zenith Ave So #102",
+   "zip": "55337"
+  },
+  "email": "rachel@bobhvac.com",
+  "name": "Bob Boldt HVAC LLC",
+  "phone": "(651) 454-7760",
+  "website": "bobhvac.com"
+ }
+}
