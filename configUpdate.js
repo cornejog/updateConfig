@@ -19,6 +19,7 @@ var searchRate = ""
 var searchTerm = ""
 var mainMenuOption = ""
 var selectedExistingChannel = ""
+var savedProgramFee = ""
 
 
 // while loop variables
@@ -46,6 +47,7 @@ var runMainMenu = true
 var runReorganizeChannel = false
 var runChannelReorganizationAction = false
 var runSaveConfigFile = false
+var runRemoveProgramFees = false
 
 //function to read in our json file and parse it
 function jsonReader(filePath, cb) {
@@ -90,7 +92,8 @@ while(runMainMenu){
   "3: Remove Loan Options from existing channel" + "\n" +
   "4: Reorganize channel" + "\n" +
   "5: Delete channel and archive loan options within them" + "\n" +
-  "6: Save config file" + "\n"));
+  "6: Remove program fees for specific approved at date" + "\n" +
+  "7: Save config file" + "\n" ));
   mainMenuOption = prompt("Your input >> ") 
   
   
@@ -115,11 +118,16 @@ while(runMainMenu){
   }else if(mainMenuOption == "4"){
     runMainMenu = false
     runReorganizeChannel = true
+  } else if(mainMenuOption == "5"){
+    console.log("\n" + "Coming soon!!!!" + "\n");
   } else if(mainMenuOption == "6"){
+    runMainMenu = false
+    runRemoveProgramFees = true
+  } else if(mainMenuOption == "7"){
     runMainMenu = false
     runApp = false
     runSaveConfigFile = true
-  }
+  } 
   
   
   }
@@ -508,6 +516,51 @@ while(runReorganizeChannel){
     runMainMenu = true
   }
 
+  ///////////////////REMOVAL OF PROGRAM FEES////////////////////
+
+
+  while(runRemoveProgramFees){
+
+    var specifiedApprovedAtDate = prompt("Which approved at date would you like to remove(yyyy-mm-dd)")
+    // loop through program fees and log specific date
+
+    // for(let i = 0; i < config.loanOptions.length; i++){
+    //   if(config.loanOptions[i].programFee[1].approvedAt == "2023-03-01"){
+    //     console.log(config.loanOptions[i].programFee[1].approvedAt);
+    //   }             
+    // }
+
+    for(let i = 0; i < config.loanOptions.length; i++){   
+      for(let a = 0; a < config.loanOptions[i].programFee.length; a++){
+        // console.log(config.loanOptions[i].programFee[a].approvedAt)
+        if(config.loanOptions[i].programFee[a].approvedAt == specifiedApprovedAtDate){
+          config.loanOptions[i].programFee.splice(a , 1)
+        }
+      }          
+    }
+    console.log("Removed requested program fees");
+    console.log("Readjusting brackets");
+
+    for(let i = 0; i < config.loanOptions.length; i++){
+      for(let a = 0; a < config.loanOptions[i].programFee.length; a++){
+        if(config.loanOptions[i].programFee.length == 1){
+          savedProgramFee =  config.loanOptions[i].programFee[a].value;
+          config.loanOptions[i].programFee.splice(a , 1)
+          savedProgramFee =  config.loanOptions[i].programFee = savedProgramFee
+          console.log("Bracket Readjusted");
+        }        
+      }
+    }
+
+    console.log("Program Fees Complete");
+    runRemoveProgramFees = false
+    runMainMenu = true
+  }
+
+
+
+
+
   /////////////////WRITING TO NEW JSON FILE WHEN DONE//////////////////////
 
   while(runSaveConfigFile){
@@ -517,6 +570,7 @@ while(runReorganizeChannel){
     });
     console.log("New proposed config written");
     runSaveConfigFile = false
+    runApp = false
   }
 
       
